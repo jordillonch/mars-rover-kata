@@ -1,4 +1,4 @@
-package org.jordillonch.katas.mars_rover.context.navigation.domain.command_processor
+package org.jordillonch.katas.mars_rover.context.navigation.domain.commands_processor
 
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Command
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Pose

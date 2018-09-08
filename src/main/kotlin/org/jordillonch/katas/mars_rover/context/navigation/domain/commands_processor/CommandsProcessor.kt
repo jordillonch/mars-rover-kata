@@ -1,4 +1,4 @@
-package org.jordillonch.katas.mars_rover.context.navigation.domain.command_processor
+package org.jordillonch.katas.mars_rover.context.navigation.domain.commands_processor
 
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Command
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Pose
@@ -7,7 +7,7 @@ import org.jordillonch.katas.mars_rover.context.navigation.domain.Status.SUCCESS
 
 class CommandsProcessor(private val navigator: Navigator) {
 
-    fun execute(initialPose: Pose, commands: List<Command>): CommandsProcessResult {
+    operator fun invoke(initialPose: Pose, commands: List<Command>): CommandsProcessResult {
         return executeCommands(initialPose, commands, emptyList())
     }
 

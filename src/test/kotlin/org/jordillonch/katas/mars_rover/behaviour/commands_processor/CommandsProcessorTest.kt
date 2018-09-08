@@ -1,4 +1,4 @@
-package org.jordillonch.katas.mars_rover.behaviour
+package org.jordillonch.katas.mars_rover.behaviour.commands_processor
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
@@ -6,8 +6,8 @@ import org.jordillonch.katas.mars_rover.context.navigation.domain.Command.FORWAR
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Direction.NORTH
 import org.jordillonch.katas.mars_rover.context.navigation.domain.MapSize
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Mark
-import org.jordillonch.katas.mars_rover.context.navigation.domain.command_processor.CommandsProcessResult
-import org.jordillonch.katas.mars_rover.context.navigation.domain.command_processor.CommandsProcessor
+import org.jordillonch.katas.mars_rover.context.navigation.domain.commands_processor.CommandsProcessResult
+import org.jordillonch.katas.mars_rover.context.navigation.domain.commands_processor.CommandsProcessor
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Position
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Pose
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Status.SUCCESS
@@ -26,11 +26,11 @@ class CommandsProcessorTest : ShouldSpec(
             should("move forward 3 steps") {
                 val initialPose = Pose(Position(0, 0), NORTH)
                 val commands = listOf(FORWARD, FORWARD, FORWARD)
-                val result = commandsProcessor.execute(initialPose, commands)
+                val result = commandsProcessor(initialPose, commands)
 
                 result.shouldBe(CommandsProcessResult(
                         SUCCESS,
-                        Pose(Position(0, 3), NORTH),
+                        Pose(Position(0, 0), NORTH),
                         commands))
             }
         })
