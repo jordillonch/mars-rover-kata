@@ -32,7 +32,7 @@ class OutOfMapDetectionNavigatorTest : ShouldSpec(
                         .also { it.shouldBe(NavigationResult(Success, Pose(Position(0, 1), NORTH))) }
                         .run { navigator(this.pose, FORWARD) }
                         .also {
-                            it.shouldBe(NavigationResult(Fail(reason = OutOfMap(Position(0, 2))),
+                            it.shouldBe(NavigationResult(Fail(OutOfMap(Position(0, 2))),
                                                          Pose(Position(0, 1), NORTH)))
                         }
             }
@@ -43,7 +43,7 @@ class OutOfMapDetectionNavigatorTest : ShouldSpec(
                         .also { it.shouldBe(NavigationResult(Success, Pose(Position(1, 0), EAST))) }
                         .run { navigator(this.pose, FORWARD) }
                         .also {
-                            it.shouldBe(NavigationResult(Fail(reason = OutOfMap(Position(2, 0))),
+                            it.shouldBe(NavigationResult(Fail(OutOfMap(Position(2, 0))),
                                                          Pose(Position(1, 0), EAST)))
                         }
             }
@@ -54,7 +54,7 @@ class OutOfMapDetectionNavigatorTest : ShouldSpec(
                         .also { it.shouldBe(NavigationResult(Success, Pose(Position(0, -1), SOUTH))) }
                         .run { navigator(this.pose, FORWARD) }
                         .also {
-                            it.shouldBe(NavigationResult(Fail(reason = OutOfMap(Position(0, -2))),
+                            it.shouldBe(NavigationResult(Fail(OutOfMap(Position(0, -2))),
                                                          Pose(Position(0, -1), SOUTH)))
                         }
             }
@@ -65,7 +65,7 @@ class OutOfMapDetectionNavigatorTest : ShouldSpec(
                         .also { it.shouldBe(NavigationResult(Success, Pose(Position(-1, 0), WEST))) }
                         .run { navigator(this.pose, FORWARD) }
                         .also {
-                            it.shouldBe(NavigationResult(Fail(reason = OutOfMap(Position(-2, 0))),
+                            it.shouldBe(NavigationResult(Fail(OutOfMap(Position(-2, 0))),
                                                          Pose(Position(-1, 0), WEST)))
                         }
             }

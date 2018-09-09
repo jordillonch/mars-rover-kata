@@ -32,26 +32,26 @@ class CommandsProcessorTest : ShouldSpec(
                 val initialPose = Pose(Position(0, 0), NORTH)
                 val commands = listOf(FORWARD, FORWARD, FORWARD)
                 commandsProcessor(initialPose, commands)
-                        .shouldBe(CommandsProcessResult(Success,
-                                                        Pose(Position(0, 3), NORTH),
-                                                        commands))
+                        .shouldBe(CommandsProcessResult(status = Success,
+                                                        pose = Pose(Position(0, 3), NORTH),
+                                                        commandsExecuted = commands))
             }
 
             should("move forward until out of map") {
                 val initialPose = Pose(Position(99, 99), NORTH)
                 val commands = listOf(FORWARD, FORWARD, FORWARD)
                 commandsProcessor(initialPose, commands)
-                        .shouldBe(CommandsProcessResult(Fail(OutOfMap(Position(99, 101))),
-                                                        Pose(Position(99, 100), NORTH),
-                                                        listOf(FORWARD, FORWARD)))
+                        .shouldBe(CommandsProcessResult(status = Fail(OutOfMap(Position(99, 101))),
+                                                        pose = Pose(Position(99, 100), NORTH),
+                                                        commandsExecuted = listOf(FORWARD, FORWARD)))
             }
 
             should("move forward until obstacle") {
                 val initialPose = Pose(Position(0, 8), NORTH)
                 val commands = listOf(FORWARD, FORWARD, FORWARD)
                 commandsProcessor(initialPose, commands)
-                        .shouldBe(CommandsProcessResult(Fail(ThereIsAObstacle(Position(0, 10))),
-                                                        Pose(Position(0, 9), NORTH),
-                                                        listOf(FORWARD, FORWARD)))
+                        .shouldBe(CommandsProcessResult(status = Fail(ThereIsAObstacle(Position(0, 10))),
+                                                        pose = Pose(Position(0, 9), NORTH),
+                                                        commandsExecuted = listOf(FORWARD, FORWARD)))
             }
         })
