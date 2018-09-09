@@ -1,11 +1,12 @@
 package org.jordillonch.katas.mars_rover.context.navigation.domain
 
-data class TerritoryMarksMap(val size: MapSize, val marks: Map<Position, Mark>)
+data class TerritoryMarksMap(val size: MapSize, val marks: MapMarks)
 
-enum class Mark {
-    UNKNOWN,
-    OBSTACLE
-}
+typealias MapMarks = Map<Position, Mark>
+
+sealed class Mark
+object Unknown : Mark()
+object Obstacle : Mark()
 
 data class MapSize(val quadrantPositionLeftUp: Position, val quadrantPositionRightDown: Position) {
     fun minX() = quadrantPositionLeftUp.x
@@ -19,3 +20,7 @@ fun TerritoryMarksMap.isOutOfBounds(position: Position) =
          || position.x < size.minX()
          || position.y > size.maxY()
          || position.y < size.minY())
+
+fun MapMarks.getMark(position: Position) = getOrDefault(position, Unknown)
+
+fun TerritoryMarksMap.thereIsAObstacle(position: Position) = marks.getMark(position) is Obstacle

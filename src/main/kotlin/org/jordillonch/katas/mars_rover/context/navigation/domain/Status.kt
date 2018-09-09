@@ -6,3 +6,4 @@ data class Fail(val reason: Reason) : Status()
 
 sealed class Reason
 data class OutOfMap(val outPosition: Position) : Reason()
+data class ThereIsAObstacle(val outPosition: Position) : Reason()

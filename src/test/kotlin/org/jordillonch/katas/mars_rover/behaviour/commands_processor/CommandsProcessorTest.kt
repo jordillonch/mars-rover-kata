@@ -6,19 +6,22 @@ import org.jordillonch.katas.mars_rover.context.navigation.domain.Command.FORWAR
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Direction.NORTH
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Fail
 import org.jordillonch.katas.mars_rover.context.navigation.domain.MapSize
-import org.jordillonch.katas.mars_rover.context.navigation.domain.Mark
+import org.jordillonch.katas.mars_rover.context.navigation.domain.Obstacle
 import org.jordillonch.katas.mars_rover.context.navigation.domain.OutOfMap
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Pose
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Position
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Success
 import org.jordillonch.katas.mars_rover.context.navigation.domain.TerritoryMarksMap
+import org.jordillonch.katas.mars_rover.context.navigation.domain.ThereIsAObstacle
 import org.jordillonch.katas.mars_rover.context.navigation.domain.commands_processor.CommandsProcessResult
 import org.jordillonch.katas.mars_rover.context.navigation.domain.commands_processor.CommandsProcessor
 import org.jordillonch.katas.mars_rover.context.navigation.domain.navigator.Navigator
 
 class CommandsProcessorTest : ShouldSpec(
         {
-            val marks = emptyMap<Position, Mark>()
+            val marks = mapOf(
+                    Position(0, 10) to Obstacle,
+                    Position(0, -10) to Obstacle)
             val marsMap = TerritoryMarksMap(MapSize(Position(-100, 100),
                                                     Position(100, -100)),
                                             marks)
@@ -40,6 +43,15 @@ class CommandsProcessorTest : ShouldSpec(
                 commandsProcessor(initialPose, commands)
                         .shouldBe(CommandsProcessResult(Fail(OutOfMap(Position(99, 101))),
                                                         Pose(Position(99, 100), NORTH),
+                                                        listOf(FORWARD, FORWARD)))
+            }
+
+            should("move forward until obstacle") {
+                val initialPose = Pose(Position(0, 8), NORTH)
+                val commands = listOf(FORWARD, FORWARD, FORWARD)
+                commandsProcessor(initialPose, commands)
+                        .shouldBe(CommandsProcessResult(Fail(ThereIsAObstacle(Position(0, 10))),
+                                                        Pose(Position(0, 9), NORTH),
                                                         listOf(FORWARD, FORWARD)))
             }
         })
