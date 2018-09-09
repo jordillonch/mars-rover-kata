@@ -45,4 +45,20 @@ class NoObstaclesNavigatorTest : ShouldSpec(
                 navigator(Pose(Position.origin(), NORTH), RIGHT)
                         .shouldBe(NavigationResult(SUCCESS, Pose(Position(0, 0), EAST)))
             }
+
+            should("complete movements") {
+                Pose(Position.origin(), NORTH)
+                        .run { navigator(this, FORWARD) }
+                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(0, 1), NORTH))) }
+                        .run { navigator(pose, RIGHT) }
+                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(0, 1), EAST))) }
+                        .run { navigator(pose, FORWARD) }
+                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(1, 1), EAST))) }
+                        .run { navigator(pose, LEFT) }
+                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(1, 1), NORTH))) }
+                        .run { navigator(pose, FORWARD) }
+                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(1, 2), NORTH))) }
+                        .run { navigator(pose, BACKWARD) }
+                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(1, 1), NORTH))) }
+            }
         })
