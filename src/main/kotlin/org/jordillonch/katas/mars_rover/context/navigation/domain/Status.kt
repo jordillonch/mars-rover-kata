@@ -1,5 +1,8 @@
 package org.jordillonch.katas.mars_rover.context.navigation.domain
 
-enum class Status {
-    SUCCESS
-}
+sealed class Status
+object Success : Status()
+data class Fail(val reason: Reason) : Status()
+
+sealed class Reason
+data class OutOfMap(val outPosition: Position) : Reason()

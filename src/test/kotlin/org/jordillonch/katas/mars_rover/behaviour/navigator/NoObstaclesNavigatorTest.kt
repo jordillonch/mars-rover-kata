@@ -13,7 +13,7 @@ import org.jordillonch.katas.mars_rover.context.navigation.domain.MapSize
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Mark
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Pose
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Position
-import org.jordillonch.katas.mars_rover.context.navigation.domain.Status.SUCCESS
+import org.jordillonch.katas.mars_rover.context.navigation.domain.Success
 import org.jordillonch.katas.mars_rover.context.navigation.domain.TerritoryMarksMap
 import org.jordillonch.katas.mars_rover.context.navigation.domain.navigator.NavigationResult
 import org.jordillonch.katas.mars_rover.context.navigation.domain.navigator.Navigator
@@ -28,37 +28,37 @@ class NoObstaclesNavigatorTest : ShouldSpec(
 
             should("move forward from origin") {
                 navigator(Pose(Position.origin(), NORTH), FORWARD)
-                        .shouldBe(NavigationResult(SUCCESS, Pose(Position(0, 1), NORTH)))
+                        .shouldBe(NavigationResult(Success, Pose(Position(0, 1), NORTH)))
             }
 
             should("move backward from origin") {
                 navigator(Pose(Position.origin(), NORTH), BACKWARD)
-                        .shouldBe(NavigationResult(SUCCESS, Pose(Position(0, -1), NORTH)))
+                        .shouldBe(NavigationResult(Success, Pose(Position(0, -1), NORTH)))
             }
 
             should("move left from origin") {
                 navigator(Pose(Position.origin(), NORTH), LEFT)
-                        .shouldBe(NavigationResult(SUCCESS, Pose(Position(0, 0), WEST)))
+                        .shouldBe(NavigationResult(Success, Pose(Position(0, 0), WEST)))
             }
 
             should("move right from origin") {
                 navigator(Pose(Position.origin(), NORTH), RIGHT)
-                        .shouldBe(NavigationResult(SUCCESS, Pose(Position(0, 0), EAST)))
+                        .shouldBe(NavigationResult(Success, Pose(Position(0, 0), EAST)))
             }
 
             should("complete movements") {
                 Pose(Position.origin(), NORTH)
                         .run { navigator(this, FORWARD) }
-                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(0, 1), NORTH))) }
+                        .also { it.shouldBe(NavigationResult(Success, Pose(Position(0, 1), NORTH))) }
                         .run { navigator(pose, RIGHT) }
-                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(0, 1), EAST))) }
+                        .also { it.shouldBe(NavigationResult(Success, Pose(Position(0, 1), EAST))) }
                         .run { navigator(pose, FORWARD) }
-                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(1, 1), EAST))) }
+                        .also { it.shouldBe(NavigationResult(Success, Pose(Position(1, 1), EAST))) }
                         .run { navigator(pose, LEFT) }
-                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(1, 1), NORTH))) }
+                        .also { it.shouldBe(NavigationResult(Success, Pose(Position(1, 1), NORTH))) }
                         .run { navigator(pose, FORWARD) }
-                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(1, 2), NORTH))) }
+                        .also { it.shouldBe(NavigationResult(Success, Pose(Position(1, 2), NORTH))) }
                         .run { navigator(pose, BACKWARD) }
-                        .also { it.shouldBe(NavigationResult(SUCCESS, Pose(Position(1, 1), NORTH))) }
+                        .also { it.shouldBe(NavigationResult(Success, Pose(Position(1, 1), NORTH))) }
             }
         })

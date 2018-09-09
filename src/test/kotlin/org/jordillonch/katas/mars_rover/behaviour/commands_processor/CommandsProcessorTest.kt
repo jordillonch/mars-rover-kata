@@ -4,14 +4,16 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Command.FORWARD
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Direction.NORTH
+import org.jordillonch.katas.mars_rover.context.navigation.domain.Fail
 import org.jordillonch.katas.mars_rover.context.navigation.domain.MapSize
 import org.jordillonch.katas.mars_rover.context.navigation.domain.Mark
+import org.jordillonch.katas.mars_rover.context.navigation.domain.OutOfMap
+import org.jordillonch.katas.mars_rover.context.navigation.domain.Pose
+import org.jordillonch.katas.mars_rover.context.navigation.domain.Position
+import org.jordillonch.katas.mars_rover.context.navigation.domain.Success
+import org.jordillonch.katas.mars_rover.context.navigation.domain.TerritoryMarksMap
 import org.jordillonch.katas.mars_rover.context.navigation.domain.commands_processor.CommandsProcessResult
 import org.jordillonch.katas.mars_rover.context.navigation.domain.commands_processor.CommandsProcessor
-import org.jordillonch.katas.mars_rover.context.navigation.domain.Position
-import org.jordillonch.katas.mars_rover.context.navigation.domain.Pose
-import org.jordillonch.katas.mars_rover.context.navigation.domain.Status.SUCCESS
-import org.jordillonch.katas.mars_rover.context.navigation.domain.TerritoryMarksMap
 import org.jordillonch.katas.mars_rover.context.navigation.domain.navigator.Navigator
 
 class CommandsProcessorTest : ShouldSpec(
@@ -26,11 +28,18 @@ class CommandsProcessorTest : ShouldSpec(
             should("move forward 3 steps") {
                 val initialPose = Pose(Position(0, 0), NORTH)
                 val commands = listOf(FORWARD, FORWARD, FORWARD)
-                val result = commandsProcessor(initialPose, commands)
+                commandsProcessor(initialPose, commands)
+                        .shouldBe(CommandsProcessResult(Success,
+                                                        Pose(Position(0, 3), NORTH),
+                                                        commands))
+            }
 
-                result.shouldBe(CommandsProcessResult(
-                        SUCCESS,
-                        Pose(Position(0, 3), NORTH),
-                        commands))
+            should("move forward until out of map") {
+                val initialPose = Pose(Position(99, 99), NORTH)
+                val commands = listOf(FORWARD, FORWARD, FORWARD)
+                commandsProcessor(initialPose, commands)
+                        .shouldBe(CommandsProcessResult(Fail(OutOfMap(Position(99, 101))),
+                                                        Pose(Position(99, 100), NORTH),
+                                                        listOf(FORWARD, FORWARD)))
             }
         })

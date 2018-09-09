@@ -13,3 +13,9 @@ data class MapSize(val quadrantPositionLeftUp: Position, val quadrantPositionRig
     fun minY() = quadrantPositionRightDown.y
     fun maxY() = quadrantPositionLeftUp.y
 }
+
+fun TerritoryMarksMap.isOutOfBounds(position: Position) =
+        (position.x > size.maxX()
+         || position.x < size.minX()
+         || position.y > size.maxY()
+         || position.y < size.minY())
