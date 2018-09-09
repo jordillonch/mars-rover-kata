@@ -30,7 +30,7 @@ class CommandsProcessorTest : ShouldSpec(
 
                 result.shouldBe(CommandsProcessResult(
                         SUCCESS,
-                        Pose(Position(0, 0), NORTH),
+                        Pose(Position(0, 3), NORTH),
                         commands))
             }
         })
