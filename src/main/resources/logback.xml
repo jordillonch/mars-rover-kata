@@ -1,0 +1,44 @@
+<configuration>
+    <property name="LOG_PATH" value="log"/>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %class{36}:%L - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_APPLICATION" class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <appender class="ch.qos.logback.core.FileAppender">
+            <file>${LOG_PATH}/instant-messaging_application.log</file>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        </appender>
+    </appender>
+
+    <appender name="FILE_ACCESS" class="net.logstash.logback.appender.LoggingEventAsyncDisruptorAppender">
+        <appender class="ch.qos.logback.core.FileAppender">
+            <file>${LOG_PATH}/instant-messaging_access.log</file>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <provider class="net.logstash.logback.composite.loggingevent.ArgumentsJsonProvider"/>
+            </encoder>
+        </appender>
+    </appender>
+
+
+    <root level="warn">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <logger name="access" level="info">
+        <appender-ref ref="FILE_ACCESS"/>
+    </logger>
+
+    <logger name="application" level="info">
+        <appender-ref ref="FILE_APPLICATION"/>
+    </logger>
+
+    <logger name="ktor.application" level="info">
+        <appender-ref ref="FILE_APPLICATION"/>
+    </logger>
+
+</configuration>

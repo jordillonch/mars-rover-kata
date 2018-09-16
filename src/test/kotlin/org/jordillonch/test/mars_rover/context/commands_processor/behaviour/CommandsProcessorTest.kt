@@ -1,4 +1,4 @@
-package org.jordillonch.katas.mars_rover.behaviour.commands_processor
+package org.jordillonch.test.mars_rover.context.commands_processor.behaviour
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec

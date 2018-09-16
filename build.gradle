@@ -1,3 +1,8 @@
+buildscript {
+    ext.ktor_version = "0.9.4"
+    ext.junit_version = "5.3.0"
+}
+
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.2.61"
 }
@@ -7,14 +12,22 @@ version "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+    maven { url "https://dl.bintray.com/kotlin/ktor" }
 }
 
 dependencies {
+    compile "ch.qos.logback:logback-classic:1.2.3"
+    compile "io.ktor:ktor-gson:$ktor_version"
+    compile "io.ktor:ktor-server-netty:$ktor_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "net.logstash.logback:logstash-logback-encoder:5.2"
+    testImplementation "com.github.javafaker:javafaker:0.16"
     testImplementation "io.kotlintest:kotlintest-runner-junit5:3.1.9"
+    testImplementation "io.ktor:ktor-server-test-host:$ktor_version"
     testImplementation "io.mockk:mockk:1.8.7"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.3.0"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_version"
 }
 
 compileKotlin {
@@ -26,4 +39,10 @@ compileTestKotlin {
 
 test {
     useJUnitPlatform()
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
