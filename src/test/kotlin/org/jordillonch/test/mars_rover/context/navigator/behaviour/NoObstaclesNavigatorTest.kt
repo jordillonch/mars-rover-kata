@@ -1,4 +1,4 @@
-package org.jordillonch.katas.mars_rover.context.navigator.behaviour
+package org.jordillonch.test.mars_rover.context.navigator.behaviour
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.ShouldSpec

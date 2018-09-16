@@ -1,9 +1,9 @@
-package org.jordillonch.katas.mars_rover.application.acceptance
+package org.jordillonch.test.mars_rover.application.acceptance
 
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.handleRequest
-import org.jordillonch.katas.mars_rover.AcceptanceTest
+import org.jordillonch.test.AcceptanceTest
 import org.junit.Assert
 
 class ApplicationTest :

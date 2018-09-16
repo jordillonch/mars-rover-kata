@@ -1,4 +1,4 @@
-package org.jordillonch.katas.mars_rover
+package org.jordillonch.test
 
 import com.typesafe.config.ConfigFactory
 import io.kotlintest.specs.AbstractShouldSpec
