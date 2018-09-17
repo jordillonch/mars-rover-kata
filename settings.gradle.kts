@@ -1,2 +1,1 @@
-//rootProject.name = 'mars-rover-kata'
-
+rootProject.name = "mars-rover-kata"
